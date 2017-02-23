@@ -147,6 +147,20 @@ public class calculatorActivity extends Activity{
 	public void onEqualClick(View arg0){
 		Button btn=(Button)arg0;
 		Log.d("Debug-Log","Inside onEqualClick , Pressed "+ btn.getText());	
+		Log.d("DebugLog","Inside onEqualClick");
+		if(this.firstNumber.length()==0) 
+			return;
+		if(this.isResult) {
+			this.history.setText(this.firstNumber+" "+operator+" "+this.secondNumber);
+			calculation();
+		}
+		else {
+			secondNumber=this.display.getText().toString();
+			this.history.setText(this.firstNumber+" "+operator+" "+this.secondNumber);
+			this.calculation();		
+			this.isResult=true;
+		}
+		this.display.setText(firstNumber);
 	}
 	
 	public void onResetClick(View arg0){
