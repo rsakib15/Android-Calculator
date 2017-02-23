@@ -1,0 +1,41 @@
+<resources>
+    
+    <string name="app_name">Calculator</string>
+
+    <string name="button_zero"><b>0</b></string>
+    <string name="button_one"><b>1</b></string>
+    <string name="button_two"><b>2</b></string>
+   	<string name="button_three"><b>3</b></string>
+   	<string name="button_four"><b>4</b></string>
+   	<string name="button_five"><b>5</b></string>
+   	<string name="button_six"><b>6</b></string>
+   	<string name="button_seven"><b>7</b></string>
+   	<string name="button_eight"><b>8</b></string>
+   	<string name="button_nine"><b>9</b></string>
+   	
+   	<string name="button_plus"><b>+</b></string>
+   	<string name="button_min"><b>-</b></string>
+   	<string name="button_multiply"><b>X</b></string>
+   	<string name="button_divide"><b>/</b></string>
+   	<string name="button_dot"><b>.</b></string>
+   	
+   	<string name="button_AC"><b>AC</b></string>
+   	<string name="button_back"><b>C</b></string>
+   	<string name="button_percent"><b>%</b></string>
+   	<string name="button_equal"><b>=</b></string>
+   	
+   	<string name="button_mPlus"><b>M+</b></string>
+    <string name="button_mMinus"><b>M-</b></string>
+    <string name="button_mClear"><b>MC</b></string>
+    <string name="button_mRec"><b>MR</b></string>
+   
+    <color name="color_white">#ffffff</color>
+    <color name="color_black">#000000</color>
+    <color name="color_gray">#4d4d4d</color>
+   
+    <color name="black_temp">#242039</color>
+	<color name="black_dark">#433F5A</color>
+	<color name="color_yellow">#FFC309</color>
+
+    
+</resources>
