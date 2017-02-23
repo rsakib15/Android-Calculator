@@ -11,7 +11,7 @@ public class calculatorActivity extends Activity{
 	
 	private TextView display,history;
 	private String firstNumber,secondNumber,operator;
-	private boolean isResult,isClear,flag,isDot;
+	private boolean isResult,isDot;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,13 +19,10 @@ public class calculatorActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		Log.d("Entry-Tag","Inside the OnCreate() method on main Activity");
 		setContentView(R.layout.main);
-		
 		this.firstNumber="";
 		this.secondNumber="";
-		this.isClear=false;
-		this.isResult=false;
 		this.operator="";
-		this.flag=false;
+		this.isResult=false;
 		this.isDot=false;
 	}
 
@@ -43,20 +40,17 @@ public class calculatorActivity extends Activity{
 	protected void onPause() {
 		super.onPause();
 		Log.d("Entry-Log","Inside OnPause of Main Activity");
-		
 	}
 	
 	@Override
 	protected void onStop() {
 		super.onStop();
-		Log.d("EntryLog","Inside OnStop of Main Activity");
-		this.display.setText(this.display.getText());
-		
+		Log.d("EntryLog","Inside OnStop of Main Activity");	
 	}
 	
 	public void onNumberClick(View arg0) {		
 		Button btn=(Button)arg0;
-		Log.d("Debug-Log","Inside onNumberClick , Pressed Button "+btn.getText());
+		Log.d("Debug-Log","Inside onNumberClick , Pressed Button " + btn.getText());
 		
 		if(this.isResult) {
 			onReset();
@@ -78,16 +72,15 @@ public class calculatorActivity extends Activity{
 			if(!btn.getText().toString().equals(".")){
 				this.display.setText(this.display.getText().toString() + btn.getText().toString());	
 			}
-			
 		}
 	}
 	
 	public void onOperatorClick(View arg0){
 		Button btn=(Button)arg0;
-		Log.d("Debug-Log","Insi de OnOperatorClick , Pressed Operator "+ btn.getText());
+		Log.d("Debug-Log","Inside OnOperatorClick , Pressed Operator "+ btn.getText());
 		this.operator=btn.getText().toString();
 		this.isDot=false;
-		
+		 
 		if(this.firstNumber.length()==0) {
 			this.firstNumber=this.display.getText().toString();
 			this.history.setText(this.firstNumber+" "+operator);
@@ -107,26 +100,48 @@ public class calculatorActivity extends Activity{
 		this.calculation();
 		this.history.setText(this.firstNumber+" "+operator);
 		this.display.setText("");
-		isClear=true;
-		
 		}
 	}
 	
 	private void calculation(){
-		if(this.firstNumber.length()==0 || this.secondNumber.length()==0) return;
-		Log.d("EntryLog","Inside PerformCalculation of Main Activity");
-		double a=Double.valueOf(firstNumber);
-		Log.d("DebugLog","Value of a is: "+a);
-		double b=Double.valueOf(secondNumber);
-		Log.d("DebugLog","Value of b is: "+b);
-		double res=a;
-		if(operator.equals("+")) res=a+b;
-		else if(operator.equals("-")) res=a-b;
-		else if(operator.equals("X")) res=a*b;
-		else if(operator.equals("/")) res=a/b;
-		int rs=(int)res;
-		if(rs==res) this.firstNumber=Integer.toString(rs);
-		else this.firstNumber= Double.toString(res);
+		Log.d("Entry-Log","Inside Calculation() method of Main Activity");
+		
+		if(this.firstNumber.length()==0 || this.secondNumber.length()==0){
+			return;
+		}
+		
+		double first=Double.valueOf(firstNumber);
+		double second=Double.valueOf(secondNumber);
+		double result=first;
+		
+		Log.d("DebugLog","Value of first number is: " + first);
+		Log.d("DebugLog","Value of second number is: "+second);
+		
+		if(operator.equals("+")){
+			result=first+second;
+		}
+		else if(operator.equals("-")){
+			result=first-second;
+		}
+		else if(operator.equals("X")){
+			result=first*second;
+		}
+		else if(operator.equals("/")){
+			result=first/second;
+		}
+		else if(operator.equals("%")){
+			result=(first*second)/100;
+		}
+		
+		Log.d("DebugLog","Value of Result is: " + result);
+		
+		int intresult=(int)result;
+		if(intresult==result){
+			this.firstNumber=Integer.toString(intresult);
+		}
+		else{
+			this.firstNumber= Double.toString(result);
+		}
 	}
 	
 	public void onEqualClick(View arg0){
@@ -150,12 +165,10 @@ public class calculatorActivity extends Activity{
 		Log.d("Entry-Log","Inside onReset");
 		this.firstNumber="";
 		this.secondNumber="";
-		this.isClear=false;
 		this.isResult=false;
 		this.operator="";
 		this.history.setText("");
 		this.display.setText("0");
-		this.flag=false;
 		this.isDot=false;
 	}
 	
@@ -163,6 +176,5 @@ public class calculatorActivity extends Activity{
 		Log.d("Entry-Log","Inside onClear");
 		this.display.setText("0");
 		isDot=false;
-		flag=false;
 	}
 }
