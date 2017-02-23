@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class calculatorActivity extends Activity{
 	
@@ -34,6 +35,7 @@ public class calculatorActivity extends Activity{
 		this.display=(TextView)findViewById(R.id.display);
 		this.history=(TextView)findViewById(R.id.history);
 		this.display.setText("0");
+		Toast.makeText(this, "Wecome to the Calculator",Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
@@ -190,5 +192,26 @@ public class calculatorActivity extends Activity{
 		Log.d("Entry-Log","Inside onClear");
 		this.display.setText("0");
 		isDot=false;
+	}
+	
+	public void onMemoryStore(){
+		
+	}
+	
+	public void ononMemDisplay(){
+		
+	}
+	
+	public void onMemoryClear(){
+		
+	}
+	
+	
+	public void setMemoryValue(){
+		
+	}
+	
+	public void getMemoryValue(){
+		
 	}
 }
