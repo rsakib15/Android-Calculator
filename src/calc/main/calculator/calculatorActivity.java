@@ -152,7 +152,6 @@ public class calculatorActivity extends Activity{
 	public void onEqualClick(View arg0){
 		Button btn=(Button)arg0;
 		Log.d("Debug-Log","Inside onEqualClick , Pressed "+ btn.getText());	
-		Log.d("DebugLog","Inside onEqualClick");
 		if(this.firstNumber.length()==0) 
 			return;
 		if(this.isResult) {
@@ -181,7 +180,7 @@ public class calculatorActivity extends Activity{
 	}
 	
 	public void onReset(){
-		Log.d("Entry-Log","Inside onReset");
+		Log.d("Entry-Log","Inside onReset() function");
 		this.firstNumber="";
 		this.secondNumber="";
 		this.isResult=false;
@@ -220,38 +219,27 @@ public class calculatorActivity extends Activity{
 		String currentValue=this.getMemoryValue();
 		double f=Double.parseDouble(currentValue);
 		double s=Double.parseDouble(str);
-		int ff=(int)f;
-		int ss=(int)s;
+		if(btn.getText().toString().equals("M+")){
+			int res=(int)f+(int)s;
+			setMemoryValue(String.valueOf(res));
+		}
+		else if(btn.getText().toString().equals("M-")){
+			int res=(int)f-(int)s;
+			setMemoryValue(String.valueOf(res));
+		}
 		
-		if(ff==f && ss==s) {
-			if(btn.getText().toString().equals("M+")){
-				setMemoryValue(String.valueOf(ff+ss));
-			}
-			else if(btn.getText().toString().equals("M-")){
-				setMemoryValue(String.valueOf(ff-ss));
-			}
-		}
-		else {
-			if(btn.getText().equals("M+")) {
-				setMemoryValue(String.valueOf(f+s));
-			}
-			else if(btn.getText().equals("M-")){
-				setMemoryValue(String.valueOf(f-s));
-			}
-		}
-		Toast.makeText(this, "Value Stored" + getMemoryValue(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Value Stored " + getMemoryValue(), Toast.LENGTH_SHORT).show();
 	}
 	
 	public void onMemoryShow(View arg0){
 		display.setText(this.getMemoryValue());
-		Toast.makeText(this, "Current Value in M is "+this.getMemoryValue(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Value in Memory : "+this.getMemoryValue(), Toast.LENGTH_SHORT).show();
 	}
 	
 	public void onMemoryClear(View arg0){
 		this.setMemoryValue("0");
-		this.history.setText("");
-		this.display.setText("0");
-		Toast.makeText(this, "Value Cleared", Toast.LENGTH_SHORT).show();
+		this.history.setText(""); 
+		Toast.makeText(this, "Memory Cleared", Toast.LENGTH_SHORT).show();
 	}
 	
 	
