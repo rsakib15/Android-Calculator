@@ -16,7 +16,14 @@ public class calculatorActivity extends Activity{
 	private boolean isResult,isDot;
 	public static final String shared_preference="CalculatorPreference";
 	
-
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Log.d("Entry-Tag","Inside the OnStart() method on main Activity");
+		
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -28,7 +35,8 @@ public class calculatorActivity extends Activity{
 		this.operator="";
 		this.isResult=false;
 		this.isDot=false;
-		Toast.makeText(this, "Wecome to the Calculator",Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Welcome to the Calculator",Toast.LENGTH_SHORT).show();
+		
 	}
 
 	@Override
