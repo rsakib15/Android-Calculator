@@ -246,13 +246,13 @@ public class calculatorActivity extends Activity{
 	public void setMemoryValue(String s){
 		SharedPreferences settings=getSharedPreferences(calculatorActivity.shared_preference,0);
 		SharedPreferences.Editor editor=settings.edit();
-		editor.putString("mem",s);
+		editor.putString("storevalue",s);
 		editor.commit();
 	}
 	
 	public String getMemoryValue(){
 		SharedPreferences settings=getSharedPreferences(calculatorActivity.shared_preference,0);
-		String t=settings.getString("mem", "0");
+		String t=settings.getString("storevalue", "0");
 		if(t.length()==0){
 			t="0";
 		}
