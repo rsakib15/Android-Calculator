@@ -224,10 +224,10 @@ public class calculatorActivity extends Activity{
 		int ss=(int)s;
 		
 		if(ff==f && ss==s) {
-			if(btn.getText().equals("M+")){
+			if(btn.getText().toString().equals("M+")){
 				setMemoryValue(String.valueOf(ff+ss));
 			}
-			else if(btn.getText().equals("M-")){
+			else if(btn.getText().toString().equals("M-")){
 				setMemoryValue(String.valueOf(ff-ss));
 			}
 		}
@@ -239,16 +239,19 @@ public class calculatorActivity extends Activity{
 				setMemoryValue(String.valueOf(f-s));
 			}
 		}
-		Toast.makeText(this, "Value Stored", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Value Stored" + getMemoryValue(), Toast.LENGTH_SHORT).show();
 	}
 	
 	public void onMemoryShow(View arg0){
-		
-		
+		display.setText(this.getMemoryValue());
+		Toast.makeText(this, "Current Value in M is "+this.getMemoryValue(), Toast.LENGTH_SHORT).show();
 	}
 	
 	public void onMemoryClear(View arg0){
-		
+		this.setMemoryValue("0");
+		this.history.setText("");
+		this.display.setText("0");
+		Toast.makeText(this, "Value Cleared", Toast.LENGTH_SHORT).show();
 	}
 	
 	
