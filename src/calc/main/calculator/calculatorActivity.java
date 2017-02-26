@@ -204,7 +204,7 @@ public class calculatorActivity extends Activity{
 		
 		if(this.firstNumber.length()==0) {
 			str=this.display.getText().toString();
-		}	
+		}
 		else if(this.isResult) {
 			str=this.display.getText().toString();
 		}
@@ -225,18 +225,18 @@ public class calculatorActivity extends Activity{
 		
 		if(ff==f && ss==s) {
 			if(btn.getText().equals("M+")){
-				this.setMemoryValue(String.valueOf(ff+ss));
+				setMemoryValue(String.valueOf(ff+ss));
 			}
-			else {
-				this.setMemoryValue(String.valueOf(ff-ss));
+			else if(btn.getText().equals("M-")){
+				setMemoryValue(String.valueOf(ff-ss));
 			}
 		}
 		else {
 			if(btn.getText().equals("M+")) {
-				this.setMemoryValue(String.valueOf(f+s));
+				setMemoryValue(String.valueOf(f+s));
 			}
-			else {
-				this.setMemoryValue(String.valueOf(f-s));
+			else if(btn.getText().equals("M-")){
+				setMemoryValue(String.valueOf(f-s));
 			}
 		}
 		Toast.makeText(this, "Value Stored", Toast.LENGTH_SHORT).show();
