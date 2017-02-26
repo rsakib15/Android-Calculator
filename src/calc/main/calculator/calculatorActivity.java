@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 public class calculatorActivity extends Activity{
@@ -266,5 +267,10 @@ public class calculatorActivity extends Activity{
 			val="0";
 		}
 		return val;
+	}
+	
+	public void onHistoryActivity(View arg0){
+		Intent i=new Intent(getApplicationContext(),historyActivity.class);
+		startActivity(i);
 	}
 }
