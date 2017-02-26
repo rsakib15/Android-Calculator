@@ -7,12 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 public class calculatorActivity extends Activity{
 	
 	private TextView display,history;
 	private String firstNumber,secondNumber,operator;
 	private boolean isResult,isDot;
+	public static final String shared_preference="CalculatorPreference";
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class calculatorActivity extends Activity{
 		this.display=(TextView)findViewById(R.id.display);
 		this.history=(TextView)findViewById(R.id.history);
 		this.display.setText("0");
-		Toast.makeText(this, "Wecome to the Calculator",Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Wecome to the Calculator",Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
@@ -194,24 +197,74 @@ public class calculatorActivity extends Activity{
 		isDot=false;
 	}
 	
-	public void onMemoryStore(){
+	public void onMemoryStore(View arg0){
+		Button btn=(Button) arg0;
+		String str;
+		Log.d("Debug-Log",this.firstNumber.length()+"");
+		
+		if(this.firstNumber.length()==0) {
+			str=this.display.getText().toString();
+		}	
+		else if(this.isResult) {
+			str=this.display.getText().toString();
+		}
+		else {
+			secondNumber=display.getText().toString();
+			history.setText(history.getText()+" "+this.secondNumber);
+			calculation();
+			display.setText(firstNumber);			
+			str=firstNumber;
+			isResult=true;	
+		}
+		
+		String currentValue=this.getMemoryValue();
+		double f=Double.parseDouble(currentValue);
+		double s=Double.parseDouble(str);
+		int ff=(int)f;
+		int ss=(int)s;
+		
+		if(ff==f && ss==s) {
+			if(btn.getText().equals("M+")){
+				this.setMemoryValue(String.valueOf(ff+ss));
+			}
+			else {
+				this.setMemoryValue(String.valueOf(ff-ss));
+			}
+		}
+		else {
+			if(btn.getText().equals("M+")) {
+				this.setMemoryValue(String.valueOf(f+s));
+			}
+			else {
+				this.setMemoryValue(String.valueOf(f-s));
+			}
+		}
+		Toast.makeText(this, "Value Stored", Toast.LENGTH_SHORT).show();
+	}
+	
+	public void onMemoryShow(View arg0){
+		
 		
 	}
 	
-	public void ononMemDisplay(){
-		
-	}
-	
-	public void onMemoryClear(){
+	public void onMemoryClear(View arg0){
 		
 	}
 	
 	
-	public void setMemoryValue(){
-		
+	public void setMemoryValue(String s){
+		SharedPreferences settings=getSharedPreferences(calculatorActivity.shared_preference,0);
+		SharedPreferences.Editor editor=settings.edit();
+		editor.putString("mem",s);
+		editor.commit();
 	}
 	
-	public void getMemoryValue(){
-		
+	public String getMemoryValue(){
+		SharedPreferences settings=getSharedPreferences(calculatorActivity.shared_preference,0);
+		String t=settings.getString("mem", "0");
+		if(t.length()==0){
+			t="0";
+		}
+		return t;
 	}
 }

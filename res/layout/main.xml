@@ -52,6 +52,7 @@
     		    android:paddingTop="7dp"
     		    android:paddingBottom="7dp"
     		    android:textSize="16sp"
+    		    android:onClick="onMemoryStore"
  
     		    />
     		
@@ -66,6 +67,7 @@
     		    android:textSize="16sp" 
     		    android:paddingTop="7dp"
     		    android:paddingBottom="7dp"
+    		    android:onClick="onMemoryStore"
     		    />
 
 		    <Button
@@ -78,7 +80,8 @@
     		    style="@style/buttonStyle"
     		    android:paddingTop="7dp"
     		    android:paddingBottom="7dp"
-    		    android:textSize="16sp" />
+    		    android:textSize="16sp" 
+    		    android:onClick="onMemoryShow"/>
 
 		    <Button
     		    android:id="@+id/button_mClear"
@@ -91,6 +94,7 @@
     		    android:paddingTop="8dp"
     		    android:paddingBottom="8dp"
     		    android:textSize="16sp" 
+    		    android:onClick="onMemoryClear"
     		    />
     </TableRow>
 	
