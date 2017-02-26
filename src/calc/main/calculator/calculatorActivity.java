@@ -28,6 +28,7 @@ public class calculatorActivity extends Activity{
 		this.operator="";
 		this.isResult=false;
 		this.isDot=false;
+		Toast.makeText(this, "Wecome to the Calculator",Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -38,7 +39,6 @@ public class calculatorActivity extends Activity{
 		this.display=(TextView)findViewById(R.id.display);
 		this.history=(TextView)findViewById(R.id.history);
 		this.display.setText("0");
-		Toast.makeText(this, "Wecome to the Calculator",Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
@@ -60,14 +60,15 @@ public class calculatorActivity extends Activity{
 		if(this.isResult) {
 			onReset();
 		}
-		if(this.display.getText().length()<=11){
+		
+		if(this.display.getText().toString().length()<=11){
 			if(this.display.getText().equals("0") && !btn.getText().toString().equals(".")) {
 				this.display.setText("");
 			}
-			if(this.display.getText().equals("0") && btn.getText().toString().equals(".")) {
+			if(this.display.getText().toString().equals("0") && btn.getText().toString().equals(".")) {
 				this.display.setText("0");
 			}
-			if(this.display.getText().equals("") && btn.getText().toString().equals(".")) {
+			if(this.display.getText().toString().equals("") && btn.getText().toString().equals(".")) {
 				this.display.setText("0");
 			}
 			if(btn.getText().toString().equals(".") && !isDot){
@@ -228,7 +229,7 @@ public class calculatorActivity extends Activity{
 			setMemoryValue(String.valueOf(res));
 		}
 		
-		Toast.makeText(this, "Value Stored " + getMemoryValue(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(this,"Value Stored " + getMemoryValue(), Toast.LENGTH_SHORT).show();
 	}
 	
 	public void onMemoryShow(View arg0){
@@ -243,19 +244,19 @@ public class calculatorActivity extends Activity{
 	}
 	
 	
-	public void setMemoryValue(String s){
+	public void setMemoryValue(String str){
 		SharedPreferences settings=getSharedPreferences(calculatorActivity.shared_preference,0);
 		SharedPreferences.Editor editor=settings.edit();
-		editor.putString("storevalue",s);
+		editor.putString("storevalue",str);
 		editor.commit();
 	}
 	
 	public String getMemoryValue(){
 		SharedPreferences settings=getSharedPreferences(calculatorActivity.shared_preference,0);
-		String t=settings.getString("storevalue", "0");
-		if(t.length()==0){
-			t="0";
+		String val=settings.getString("storevalue", "0");
+		if(val.length()==0){
+			val="0";
 		}
-		return t;
+		return val;
 	}
 }
