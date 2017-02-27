@@ -269,6 +269,27 @@ public class calculatorActivity extends Activity{
 		return val;
 	}
 	
+	public void WriteInternal(String h,String d){
+		FileOutputStream fs;
+		SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
+		String date=df.format(new Date());
+		
+		try{
+			fs=openFileOutput(Internal_File_Name, MODE_PRIVATE | MODE_APPEND);
+			fs.write(date.getBytes());
+			fs.write(System.getProperty("line.separator").getBytes());
+			fs.write(h.getBytes());
+			fs.write(System.getProperty("line.separator").getBytes());
+			fs.write(d.getBytes());
+			fs.write(System.getProperty("line.separator").getBytes());
+			fs.flush();
+			fs.close();
+		}
+		catch(Exception e) {
+			Log.d("ExceptionLog",e.getMessage());
+		}
+	}
+	
 	public void onHistoryActivity(View arg0){
 		Intent i=new Intent(getApplicationContext(),historyActivity.class);
 		startActivity(i);
