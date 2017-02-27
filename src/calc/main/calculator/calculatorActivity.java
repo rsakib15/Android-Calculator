@@ -1,5 +1,9 @@
 package calc.main.calculator;
 
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +15,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 public class calculatorActivity extends Activity{
-	
 	private TextView display,history;
 	private String firstNumber,secondNumber,operator;
 	private boolean isResult,isDot;
 	public static final String shared_preference="CalculatorPreference";
+	public static final String Internal_File_Name="CalculatorData";
 	
 	@Override
 	protected void onStart() {
@@ -157,6 +161,7 @@ public class calculatorActivity extends Activity{
 		else{
 			this.firstNumber= Double.toString(result);
 		}
+		this.WriteInternal(history.getText().toString(), Double.toString(result));
 	}
 	
 	public void onEqualClick(View arg0){
@@ -269,6 +274,11 @@ public class calculatorActivity extends Activity{
 		return val;
 	}
 	
+	public void onHistoryActivity(View arg0){
+		Intent i=new Intent(getApplicationContext(),historyActivity.class);
+		startActivity(i);
+	}
+	
 	public void WriteInternal(String h,String d){
 		FileOutputStream fs;
 		SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
@@ -288,10 +298,5 @@ public class calculatorActivity extends Activity{
 		catch(Exception e) {
 			Log.d("ExceptionLog",e.getMessage());
 		}
-	}
-	
-	public void onHistoryActivity(View arg0){
-		Intent i=new Intent(getApplicationContext(),historyActivity.class);
-		startActivity(i);
 	}
 }
