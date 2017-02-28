@@ -272,5 +272,7 @@ public class calculatorActivity extends Activity{
 	public void onHistoryActivity(View arg0){
 		Intent i=new Intent(getApplicationContext(),historyActivity.class);
 		startActivity(i);
+		
+	
 	}
 }
