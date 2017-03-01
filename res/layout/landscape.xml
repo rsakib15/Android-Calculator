@@ -49,7 +49,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp"
+    		    android:textSize="14sp"
     		    android:onClick="onMemoryStore"
  
     		    />
@@ -62,7 +62,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="14sp" 
     		    android:onClick="onMemoryStore"
     		    />
 
@@ -74,7 +74,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="14sp" 
     		    android:onClick="onMemoryShow"/>
 
 		    <Button
@@ -85,7 +85,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="14sp" 
     		    android:onClick="onMemoryClear"
     		    />
     </TableRow>
@@ -101,7 +101,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="14sp" 
     		    android:onClick="onResetClick"
     		      		    
     		    />
