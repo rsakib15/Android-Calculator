@@ -301,4 +301,8 @@ public class calculatorActivity extends Activity{
 			Log.d("ExceptionLog",e.getMessage());
 		}
 	}
+	
+	public void ReadInternal(){
+		
+	}
 }
