@@ -101,7 +101,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="14sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onResetClick"
     		      		    
     		    />
@@ -113,7 +113,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onClearClick"
     		    
     		 />
@@ -125,7 +125,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		   	android:textSize="20sp"
     		    android:onClick="onOperatorClick"
     		   />
 		    
@@ -137,7 +137,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onOperatorClick"
     		   />
 		    
@@ -154,7 +154,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"
     		 />
     		
@@ -166,7 +166,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"
     		    />
 
@@ -178,7 +178,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"/>
 
         	<Button
@@ -189,7 +189,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onOperatorClick"
     		    />
     </TableRow>
@@ -205,7 +205,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"
     		    />
 		    <Button
@@ -216,7 +216,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp"
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick" />
 		    
 		    <Button
@@ -227,7 +227,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"/>
         	<Button
     		    android:id="@+id/button_min"
@@ -237,7 +237,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onOperatorClick"/>
     </TableRow>
     
@@ -252,7 +252,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"/>
 		    <Button
     		    android:id="@+id/button_two"
@@ -262,7 +262,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"/>
 		    
 		    <Button
@@ -273,7 +273,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"/>
 		    
         	<Button
@@ -284,7 +284,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onOperatorClick"/>
     </TableRow>
     
@@ -299,7 +299,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"/>
     		
 		    <Button
@@ -310,7 +310,7 @@
     		    android:layout_weight="1"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onNumberClick"/>
 		    
 		    <Button
@@ -321,7 +321,7 @@
     		    android:layout_weight="2"
     		    android:background="@drawable/button"
     		    style="@style/buttonStyle"
-    		    android:textSize="10sp" 
+    		    android:textSize="20sp"
     		    android:onClick="onEqualClick"/>
     </TableRow>
 </TableLayout>
