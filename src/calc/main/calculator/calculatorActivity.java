@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 
 public class calculatorActivity extends Activity{
 	private TextView display,history;
@@ -26,6 +27,15 @@ public class calculatorActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onStart();
 		Log.d("Entry-Tag","Inside the OnStart() method on main Activity");
+
+		switch (getResources().getConfiguration().orientation) {
+        	case Configuration.ORIENTATION_PORTRAIT:
+        		setContentView(R.layout.main);
+        		break;
+        	case Configuration.ORIENTATION_LANDSCAPE:
+        		setContentView(R.layout.landscape);
+        		break;
+		}
 		
 	}
 	
@@ -51,7 +61,6 @@ public class calculatorActivity extends Activity{
 		Log.d("Entry-Log","Inside the onResume() method on main Activity");
 		this.display=(TextView)findViewById(R.id.display);
 		this.history=(TextView)findViewById(R.id.history);
-		this.display.setText("0");
 	}
 	
 	@Override
@@ -277,8 +286,6 @@ public class calculatorActivity extends Activity{
 	public void onHistoryActivity(View arg0){
 		Intent i=new Intent(getApplicationContext(),historyActivity.class);
 		startActivity(i);
-		
-	
 	}
 	
 	public void WriteInternal(String h,String d){
@@ -302,7 +309,45 @@ public class calculatorActivity extends Activity{
 		}
 	}
 	
-	public void ReadInternal(){
-		
+	protected void onSaveInstanceState(Bundle outState) {
+			super.onSaveInstanceState(outState);
+			Log.i("Tag-State Changes", "onSaveInstanceState");
+			
+			TextView dis =  (TextView) findViewById(R.id.display);
+			TextView his = (TextView)findViewById(R.id.history);
+			CharSequence displayText = dis.getText();
+			CharSequence historyText = his.getText();	
+			outState.putCharSequence("saveddisplayText", displayText);
+			outState.putCharSequence("savedhistoryText", historyText);
+			Log.i("Display text",displayText.toString());
+			Log.i("History text",historyText.toString());
+	}
+	
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		   super.onRestoreInstanceState(savedInstanceState);
+		   Log.i("TAG-state Restored", "onRestoreInstanceState");
+		   
+		   TextView dis =(TextView) findViewById(R.id.display);
+		   TextView his = (TextView) findViewById(R.id.history);
+		   CharSequence displayText = savedInstanceState.getCharSequence("saveddisplayText");
+		   CharSequence historyText = savedInstanceState.getCharSequence("savedhistoryText");
+		   dis.setText(displayText);
+		   his.setText(historyText);
+		   
+		   Log.i("value in Resotre " ,displayText.toString());
+		   Log.i("Vale on Restore History",historyText.toString());
+	}
+	
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+
+	    // Checks the orientation of the screen
+	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+	        Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+	    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+	        Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+	    }
 	}
 }
