@@ -1,11 +1,13 @@
 package calc.main.calculator;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -170,6 +172,7 @@ public class calculatorActivity extends Activity{
 		else{
 			this.firstNumber= Double.toString(result);
 		}
+		//this.WriteInternal(history.getText().toString(), Double.toString(result));
 		this.WriteInternal(history.getText().toString(), Double.toString(result));
 	}
 	
@@ -307,6 +310,30 @@ public class calculatorActivity extends Activity{
 		catch(Exception e) {
 			Log.d("ExceptionLog",e.getMessage());
 		}
+	}
+	
+	public void WriteExternal(String h,String d){
+		 	String root = Environment.getExternalStorageDirectory().toString();
+		    File myDir = new File(root + "/Calculator_Data");    
+		    myDir.mkdirs();
+		    FileOutputStream fs;
+		    SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
+		    String date=df.format(new Date());
+		    try {
+		    	   fs=openFileOutput(Internal_File_Name, MODE_PRIVATE | MODE_APPEND);
+		    	   fs.write(date.getBytes());
+		    	   fs.write(System.getProperty("line.separator").getBytes());
+		    	   fs.write(h.getBytes());
+		    	   fs.write(System.getProperty("line.separator").getBytes());
+		    	   fs.write(d.getBytes());
+					fs.write(System.getProperty("line.separator").getBytes());
+					fs.flush();
+					fs.close();
+					Log.i("External-Entry","Save On external memory");
+
+		    } catch (Exception e) {
+		           e.printStackTrace();
+		  }
 	}
 	
 	protected void onSaveInstanceState(Bundle outState) {
