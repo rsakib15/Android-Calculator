@@ -1,6 +1,8 @@
 package calc.main.calculator;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 import android.app.Activity;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class historyActivity extends Activity{
 	public static final String fileName="storage";
@@ -25,7 +28,7 @@ public class historyActivity extends Activity{
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		readInternalFile();
+		readExternalFile();
 	}
 
 	public void readInternalFile() {
@@ -67,18 +70,20 @@ public class historyActivity extends Activity{
 		}
 	}
 	
+
 	public void readExternalFile() {
 		TableLayout table = (TableLayout)findViewById(R.id.historyTable);
+		File myFile = new File("/sdcard/mysdfile.txt");
 		
 		try{
 			int count=0;
 			TableRow tr = null;
 			TextView tv = null;
 			String tText="";
-			BufferedReader inputReader=new BufferedReader(
-					new InputStreamReader(openFileInput(calculatorActivity.Internal_File_Name)));
+			FileInputStream fIn = new FileInputStream(myFile);
+	        BufferedReader myReader = new BufferedReader( new InputStreamReader(fIn));
 			String input;
-			while((input=inputReader.readLine())!=null) {
+			while((input=myReader.readLine())!=null) {
 				Log.d("DebugLog",input);
 				if(count==0) {
 					tText="";
@@ -105,9 +110,6 @@ public class historyActivity extends Activity{
 			Log.d("Exception-Log",e.getMessage());
 		}
 	}
-
-
-	
 }
 
 

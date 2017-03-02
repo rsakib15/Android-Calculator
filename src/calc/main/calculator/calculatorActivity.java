@@ -24,6 +24,7 @@ public class calculatorActivity extends Activity{
 	private boolean isResult,isDot;
 	public static final String shared_preference="CalculatorPreference";
 	public static final String Internal_File_Name="CalculatorData";
+	public static final String External_File_Name="CalculatorData";
 	
 	@Override
 	protected void onStart() {
@@ -318,7 +319,8 @@ public class calculatorActivity extends Activity{
 		String date=df.format(new Date());
 		try {
             File myFile = new File("/sdcard/mysdfile.txt");
-            myFile.createNewFile();
+            if(!myFile.exists()) 
+            	myFile.createNewFile();
             FileOutputStream fOut = new FileOutputStream(myFile);
             OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
             myOutWriter.append(date.toString());
@@ -328,6 +330,7 @@ public class calculatorActivity extends Activity{
             myOutWriter.append(d.toString());
             myOutWriter.append(System.getProperty("line.separator").toString());
             myOutWriter.close();
+            fOut.flush();
             fOut.close();
             Toast.makeText(getBaseContext(),"Done writing SD 'mysdfile.txt'",Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
