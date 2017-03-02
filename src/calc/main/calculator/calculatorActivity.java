@@ -2,6 +2,7 @@ package calc.main.calculator;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -173,7 +174,7 @@ public class calculatorActivity extends Activity{
 			this.firstNumber= Double.toString(result);
 		}
 		//this.WriteInternal(history.getText().toString(), Double.toString(result));
-		this.WriteInternal(history.getText().toString(), Double.toString(result));
+		this.WriteExternal(history.getText().toString(), Double.toString(result));
 	}
 	
 	public void onEqualClick(View arg0){
@@ -313,27 +314,25 @@ public class calculatorActivity extends Activity{
 	}
 	
 	public void WriteExternal(String h,String d){
-		 	String root = Environment.getExternalStorageDirectory().toString();
-		    File myDir = new File(root + "/Calculator_Data");    
-		    myDir.mkdirs();
-		    FileOutputStream fs;
-		    SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
-		    String date=df.format(new Date());
-		    try {
-		    	   fs=openFileOutput(Internal_File_Name, MODE_PRIVATE | MODE_APPEND);
-		    	   fs.write(date.getBytes());
-		    	   fs.write(System.getProperty("line.separator").getBytes());
-		    	   fs.write(h.getBytes());
-		    	   fs.write(System.getProperty("line.separator").getBytes());
-		    	   fs.write(d.getBytes());
-					fs.write(System.getProperty("line.separator").getBytes());
-					fs.flush();
-					fs.close();
-					Log.i("External-Entry","Save On external memory");
-
-		    } catch (Exception e) {
-		           e.printStackTrace();
-		  }
+		SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
+		String date=df.format(new Date());
+		try {
+            File myFile = new File("/sdcard/mysdfile.txt");
+            myFile.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(myFile);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(date.toString());
+            myOutWriter.append(System.getProperty("line.separator").toString());
+            myOutWriter.append(h.toString());
+            myOutWriter.append(System.getProperty("line.separator").toString());
+            myOutWriter.append(d.toString());
+            myOutWriter.append(System.getProperty("line.separator").toString());
+            myOutWriter.close();
+            fOut.close();
+            Toast.makeText(getBaseContext(),"Done writing SD 'mysdfile.txt'",Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
 	}
 	
 	protected void onSaveInstanceState(Bundle outState) {
