@@ -25,6 +25,8 @@ public class calculatorActivity extends Activity{
 	public static final String shared_preference="CalculatorPreference";
 	public static final String Internal_File_Name="CalculatorData";
 	public static final String External_File_Name="CalculatorData";
+	public static final String Local_File_name="CalculatorData";
+	public static databaseHandler db;
 	
 	@Override
 	protected void onStart() {
@@ -55,6 +57,21 @@ public class calculatorActivity extends Activity{
 		this.isResult=false;
 		this.isDot=false;
 		Toast.makeText(this, "Welcome to the Calculator",Toast.LENGTH_SHORT).show();
+		
+		Bundle extras=getIntent().getExtras();
+		if(extras!=null) {
+			this.history.setText(extras.getString("history"));
+			this.display.setText(extras.getString("result"));
+			this.isResult=true;
+			if(extras.getString("history")!=null) {
+				String parts[]=extras.getString("history").split(" ");
+				this.firstNumber=extras.getString("result");
+				this.operator=parts[1];
+				this.secondNumber=parts[2];
+			}
+		}
+		
+		Log.d("EntryLog","Inside OnCreate of Main Activity");
 		
 	}
 
@@ -136,46 +153,34 @@ public class calculatorActivity extends Activity{
 	}
 	
 	private void calculation(){
+		Intent i=new Intent(getApplicationContext(),CalculationActivity.class);
 		Log.d("Entry-Log","Inside Calculation() method of Main Activity");
-		
-		if(this.firstNumber.length()==0 || this.secondNumber.length()==0){
-			return;
+		i.putExtra("first", this.firstNumber);
+		i.putExtra("second", this.secondNumber);
+		i.putExtra("op", this.operator);
+		i.putExtra("history", this.history.getText());
+		Log.d("Entry-Log","Inside done Calculation() of Main Activity");
+		//startActivityForResult(i, 1);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode==1) {
+			if(resultCode==RESULT_OK) {
+				Log.d("OnActivity Result",data.getStringExtra("result"));
+				this.firstNumber=data.getStringExtra("result");
+				this.display.setText(this.firstNumber);
+				InsertDb(this.history.getText().toString(), this.firstNumber);
+			}
+			
 		}
-		
-		double first=Double.valueOf(firstNumber);
-		double second=Double.valueOf(secondNumber);
-		double result=first;
-		
-		Log.d("DebugLog","Value of first number is: " + first);
-		Log.d("DebugLog","Value of second number is: "+second);
-		
-		if(operator.equals("+")){
-			result=first+second;
-		}
-		else if(operator.equals("-")){
-			result=first-second;
-		}
-		else if(operator.equals("X")){
-			result=first*second;
-		}
-		else if(operator.equals("/")){
-			result=first/second;
-		}
-		else if(operator.equals("%")){
-			result=(first*second)/100;
-		}
-		
-		Log.d("DebugLog","Value of Result is: " + result);
-		
-		int intresult=(int)result;
-		if(intresult==result){
-			this.firstNumber=Integer.toString(intresult);
-		}
-		else{
-			this.firstNumber= Double.toString(result);
-		}
-		//this.WriteInternal(history.getText().toString(), Double.toString(result));
-		this.WriteExternal(history.getText().toString(), Double.toString(result));
+	}
+	
+	public void InsertDb(String data,String data2) {
+		SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
+		String date=df.format(new Date());
+		db.addHistory(new history(date,data,data2));
 	}
 	
 	public void onEqualClick(View arg0){
@@ -193,7 +198,7 @@ public class calculatorActivity extends Activity{
 			this.calculation();		
 			this.isResult=true;
 		}
-		this.display.setText(firstNumber);
+		//this.display.setText(firstNumber);
 	}
 	
 	public void onResetClick(View arg0){
@@ -289,9 +294,11 @@ public class calculatorActivity extends Activity{
 	}
 	
 	public void onHistoryActivity(View arg0){
+		Log.d("DebugLog","Inside OnHistory");
 		Intent i=new Intent(getApplicationContext(),historyActivity.class);
 		startActivity(i);
 	}
+
 	
 	public void WriteInternal(String h,String d){
 		FileOutputStream fs;
@@ -315,23 +322,22 @@ public class calculatorActivity extends Activity{
 	}
 	
 	public void WriteExternal(String h,String d){
+		FileOutputStream fs;
 		SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
 		String date=df.format(new Date());
+		File externalStorageDir = Environment.getExternalStorageDirectory();
+		File myFile = new File(externalStorageDir , "mysdfile.txt");
 		try {
-            File myFile = new File("/sdcard/mysdfile.txt");
-            if(!myFile.exists()) 
-            	myFile.createNewFile();
-            FileOutputStream fOut = new FileOutputStream(myFile);
-            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-            myOutWriter.append(date.toString());
-            myOutWriter.append(System.getProperty("line.separator").toString());
-            myOutWriter.append(h.toString());
-            myOutWriter.append(System.getProperty("line.separator").toString());
-            myOutWriter.append(d.toString());
-            myOutWriter.append(System.getProperty("line.separator").toString());
-            myOutWriter.close();
-            fOut.flush();
-            fOut.close();
+				FileOutputStream fOut = new FileOutputStream(myFile);
+		       OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+		       myOutWriter.append("test");
+		       myOutWriter.append(System.getProperty("line.separator").toString());
+		       myOutWriter.append("test");
+		       myOutWriter.append(System.getProperty("line.separator").toString());
+		       myOutWriter.append("test");
+		       myOutWriter.append(System.getProperty("line.separator").toString());
+		       myOutWriter.close();
+		       fOut.close();
             Toast.makeText(getBaseContext(),"Done writing SD 'mysdfile.txt'",Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_SHORT).show();
