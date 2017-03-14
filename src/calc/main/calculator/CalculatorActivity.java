@@ -54,7 +54,6 @@ public class CalculatorActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Log.d("Entry-Tag","Enter Inside the OnCreate() method on Main Activity");
 		setContentView(R.layout.main);
 		this.firstNumber="";
