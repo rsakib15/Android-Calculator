@@ -20,30 +20,48 @@ public class CalculationActivity extends Activity{
 		if(e==null) 
 			this.setResult(RESULT_CANCELED,intent);
 		else {
+			Log.d("Entry-Log","Inside Calculation() method of Calculation Activity");
 			String firstNumber,secondNumber,operator;
 			firstNumber=e.getString("firstNumber");
 			secondNumber=e.getString("secondNumber");
 			operator=e.getString("operator");
-			if(firstNumber.length()==0 || secondNumber.length()==0) 
+			
+			if(firstNumber.length()==0 || secondNumber.length()==0){
 				setResult(RESULT_CANCELED,intent);
-			else {
-				double a=Double.valueOf(firstNumber);
-				double b=Double.valueOf(secondNumber);
-				double res=a;
-				if(operator.equals("+")) 
-					res=a+b;
-				else if(operator.equals("-")) 
-					res=a-b;
-				else if(operator.equals("X"))
-					res=a*b;
-				else if(operator.equals("/")) 
-					res=a/b;
-				int rs=(int)res;
-				if(rs==res) 
-					firstNumber=Integer.toString(rs);
-				else 
-					firstNumber= Double.toString(res);
+			}
+			else{
+				double first=Double.valueOf(firstNumber);
+				double second=Double.valueOf(secondNumber);
+				double result=first;
 				
+				Log.d("DebugLog","Value of first number is: " + first);
+				Log.d("DebugLog","Value of second number is: "+second);
+				
+				if(operator.equals("+")){
+					result=first+second;
+				}
+				else if(operator.equals("-")){
+					result=first-second;
+				}
+				else if(operator.equals("X")){
+					result=first*second;
+				}
+				else if(operator.equals("/")){
+					result=first/second;
+				}
+				else if(operator.equals("%")){
+					result=(first*second)/100;
+				}
+				
+				Log.d("DebugLog","Value of Result is: " + result);
+				
+				int intresult=(int)result;
+				if(intresult==result){
+					firstNumber=Integer.toString(intresult);
+				}
+				else{
+					firstNumber= Double.toString(result);
+				}
 				setResult(RESULT_OK,intent);
 				intent.putExtra("result", firstNumber);
 			}

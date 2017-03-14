@@ -59,10 +59,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         		HISTORY_KEY_RESULT }, HISTORY_KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
        
-        if (cursor != null) cursor.moveToFirst();
+        if (cursor != null) {
+        	cursor.moveToFirst();
+        }
  
-        History history = new History(cursor.getString(0),cursor.getString(1),
-        		cursor.getString(2));
+        History history = new History(cursor.getString(0),cursor.getString(1),cursor.getString(2));
         cursor.close();
         return history;
     }

@@ -128,12 +128,10 @@ public class HistoryActivity extends Activity{
 					if(count==0) {
 						tableText="";
 						tablerow=new TableRow(this);
-						tablerow.setLayoutParams(new TableRow.LayoutParams(
-								TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
+						tablerow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
 						tablerow.setGravity(android.view.Gravity.CENTER);
 						tableview=new TextView(this);
-						tableview.setLayoutParams(new TableRow.LayoutParams(
-								TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
+						tableview.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
 						tableview.setClickable(true);
 						tableview.setOnClickListener(new View.OnClickListener() {
 							public void onClick(View arg0) {
