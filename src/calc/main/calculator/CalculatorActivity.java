@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -17,7 +16,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import calc.main.calculator.R;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -95,28 +93,6 @@ public class CalculatorActivity extends Activity{
 	protected void onStop() {
 		super.onStop();
 		Log.i("Entry-Tag","Enter Inside OnStop() on Main Activity");	
-	}
-	
-	
-	 @Override
-	 public void onBackPressed() {
-	     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	     builder.setTitle("Exit?")
-	         .setMessage("Are you sure you want to exit?")
-	         .setCancelable(false)
-	         .setIcon(R.drawable.help)
-	         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	         public void onClick(DialogInterface dialog, int id) {
-	               finish();
-	          	}
-	         })
-	         .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	              public void onClick(DialogInterface dialog, int id) {
-	                  dialog.cancel();
-	              }
-	        });
-	        AlertDialog alert = builder.create();
-	        alert.show();
 	}
 	
 	public void onNumberClick(View arg0) {	
