@@ -1,18 +1,18 @@
 package calc.main.calculator;
 
-public class history {
+public class History {
 	private int id;
 	private String time;
 	private String equation;
 	private String result;
 	
-	public history() {
+	public History() {
 		this.id=0;
 		this.time="";
 		this.equation="";
 		this.result="";
 	}
-	public history(String time,String equations,String result) {
+	public History(String time,String equations,String result) {
 		this.time=time;
 		this.equation=equations;
 		this.result=result;

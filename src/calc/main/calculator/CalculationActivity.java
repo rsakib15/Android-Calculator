@@ -6,44 +6,47 @@ import android.os.Bundle;
 import android.util.Log;
 
 public class CalculationActivity extends Activity{
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		Log.d("EntryLog","Inside PerformCalculation of Main Activity");
-		Bundle extras=getIntent().getExtras();
-		this.Perform(extras);
+		Log.d("EntryLog","Inside onCreate() on Calculation Activity");
+		Bundle e=getIntent().getExtras();
+		this.Calculation(e);
 	}
 
-	public void Perform(Bundle extras) {
+	public void Calculation(Bundle e) {
 		Intent intent=new Intent();
-		if(extras==null) setResult(RESULT_CANCELED,intent);
+		if(e==null) 
+			this.setResult(RESULT_CANCELED,intent);
 		else {
-			String first,second,op;
-			first=extras.getString("first");
-			second=extras.getString("second");
-			op=extras.getString("op");
-			if(first.length()==0 || second.length()==0) 
+			String firstNumber,secondNumber,operator;
+			firstNumber=e.getString("firstNumber");
+			secondNumber=e.getString("secondNumber");
+			operator=e.getString("operator");
+			if(firstNumber.length()==0 || secondNumber.length()==0) 
 				setResult(RESULT_CANCELED,intent);
-			//Log.d("EntryLog","Inside PerformCalculation of Main Activity");
 			else {
-				double a=Double.valueOf(first);
-				Log.d("DebugLog","Value of a is: "+a);
-				double b=Double.valueOf(second);
-				Log.d("DebugLog","Value of b is: "+b);
+				double a=Double.valueOf(firstNumber);
+				double b=Double.valueOf(secondNumber);
 				double res=a;
-				if(op.equals("+")) res=a+b;
-				else if(op.equals("-")) res=a-b;
-				else if(op.equals("X")) res=a*b;
-				else if(op.equals("/")) res=a/b;
+				if(operator.equals("+")) 
+					res=a+b;
+				else if(operator.equals("-")) 
+					res=a-b;
+				else if(operator.equals("X"))
+					res=a*b;
+				else if(operator.equals("/")) 
+					res=a/b;
 				int rs=(int)res;
-				if(rs==res) first=Integer.toString(rs);
-				else first= Double.toString(res);
+				if(rs==res) 
+					firstNumber=Integer.toString(rs);
+				else 
+					firstNumber= Double.toString(res);
+				
 				setResult(RESULT_OK,intent);
-				intent.putExtra("result", first);
+				intent.putExtra("result", firstNumber);
 			}
-			//this.WriteFile(this.history.getText().toString(),this.first);
 		}
 		finish();
 	}

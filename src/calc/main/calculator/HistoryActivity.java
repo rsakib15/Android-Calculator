@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import calc.main.calculator.R;
 
-public class historyActivity extends Activity{
+public class HistoryActivity extends Activity{
 	public static final String fileName="storage.dat";
 	TableLayout table;
 	@Override
@@ -39,7 +39,7 @@ public class historyActivity extends Activity{
 	
 	public void onBackClick(View arg0) {
 		Log.d("DebugLog","Inside OnBackClick");
-		Intent i=new Intent(getApplicationContext(),calculatorActivity.class);
+		Intent i=new Intent(getApplicationContext(),CalculatorActivity.class);
 		startActivity(i);
 	}
 
@@ -47,32 +47,27 @@ public class historyActivity extends Activity{
 		table = (TableLayout)findViewById(R.id.historyTable);
 		try{
 			int count=0;
-			TableRow tr = null;
-			TextView tv = null;
-			String tText="";
-			BufferedReader inputReader=new BufferedReader(
-					new InputStreamReader(openFileInput(calculatorActivity.Internal_File_Name)));
+			TableRow tablerow = null;
+			TextView tableview = null;
+			String tableText="";
+			BufferedReader inputReader=new BufferedReader(new InputStreamReader(openFileInput(CalculatorActivity.Internal_File_Name)));
 			String input;
 			while((input=inputReader.readLine())!=null) {
-				Log.d("DebugLog",input);
 				if(count==0) {
-					tText="";
-					tr=new TableRow(this);
-					tr.setLayoutParams(new TableRow.LayoutParams(
-							TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
-					tv=new TextView(this);
-					tv.setLayoutParams(new TableRow.LayoutParams(
-							TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
-					tv.setClickable(true);
+					tableText="";
+					tablerow=new TableRow(this);
+					tablerow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
+					tableview=new TextView(this);
+					tableview.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
+					tableview.setClickable(true);
 				}
-				tText=tText+input+"\n";
+				tableText=tableText+input+"\n\n";
 				count++;
 				if(count==3) {
 					count=0;
-					tv.setText(tText);
-					tr.addView(tv);
-					table.addView(tr,new TableLayout.LayoutParams(
-							TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+					tableview.setText(tableText);
+					tablerow.addView(tableview);
+					table.addView(tablerow,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
 				}
 			}
 		}
@@ -88,32 +83,29 @@ public class historyActivity extends Activity{
 		
 		try{
 			int count=0;
-			TableRow tr = null;
-			TextView tv = null;
-			String tText="";
-			FileInputStream fIn = new FileInputStream(myFile);
-	        BufferedReader myReader = new BufferedReader( new InputStreamReader(fIn));
+			TableRow tablerow = null;
+			TextView tableview = null;
+			String tableText="";
+			FileInputStream file = new FileInputStream(myFile);
+	        BufferedReader myReader = new BufferedReader( new InputStreamReader(file));
 			String input;
 			while((input=myReader.readLine())!=null) {
 				Log.d("DebugLog",input);
 				if(count==0) {
-					tText="";
-					tr=new TableRow(this);
-					tr.setLayoutParams(new TableRow.LayoutParams(
-							TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
-					tv=new TextView(this);
-					tv.setLayoutParams(new TableRow.LayoutParams(
-							TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
-					tv.setClickable(true);
+					tableText="";
+					tablerow=new TableRow(this);
+					tablerow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
+					tableview=new TextView(this);
+					tableview.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
+					tableview.setClickable(true);
 				}
-				tText=tText+input+"\n";
+				tableText=tableText+input+"\n\n";
 				count++;
 				if(count==3) {
 					count=0;
-					tv.setText(tText);
-					tr.addView(tv);
-					table.addView(tr,new TableLayout.LayoutParams(
-							TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+					tableview.setText(tableText);
+					tablerow.addView(tableview);
+					table.addView(tablerow,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
 				}
 			}
 		}
@@ -122,43 +114,40 @@ public class historyActivity extends Activity{
 		}
 	}
 	
-
 	public void ReadStorageFile() {
 			table=(TableLayout)findViewById(R.id.historyTable);
 			try{
 				int count=0;
-				TableRow tr = null;
-				TextView tv = null;
-				String tText="";
-				BufferedReader inputReader=new BufferedReader(
-						new InputStreamReader(openFileInput(calculatorActivity.Local_File_name)));
+				TableRow tablerow = null;
+				TextView tableview = null;
+				String tableText="";
+				BufferedReader inputReader=new BufferedReader(new InputStreamReader(openFileInput(CalculatorActivity.Local_File_name)));
 				String input;
 				while((input=inputReader.readLine())!=null) {
 					Log.d("DebugLog",input);
 					if(count==0) {
-						tText="";
-						tr=new TableRow(this);
-						tr.setLayoutParams(new TableRow.LayoutParams(
+						tableText="";
+						tablerow=new TableRow(this);
+						tablerow.setLayoutParams(new TableRow.LayoutParams(
 								TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
-						tr.setGravity(android.view.Gravity.CENTER);
-						tv=new TextView(this);
-						tv.setLayoutParams(new TableRow.LayoutParams(
+						tablerow.setGravity(android.view.Gravity.CENTER);
+						tableview=new TextView(this);
+						tableview.setLayoutParams(new TableRow.LayoutParams(
 								TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
-						tv.setClickable(true);
-						tv.setOnClickListener(new View.OnClickListener() {
+						tableview.setClickable(true);
+						tableview.setOnClickListener(new View.OnClickListener() {
 							public void onClick(View arg0) {
 								onViewClick(arg0);	
 							}
 						});
 					}
-					tText=tText+input+"\n";
+					tableText=tableText+input+"\n\n";
 					count++;
 					if(count==3) {
 						count=0;
-						tv.setText(tText);
-						tr.addView(tv);
-						table.addView(tr,new TableLayout.LayoutParams(
-								TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+						tableview.setText(tableText);
+						tablerow.addView(tableview);
+						table.addView(tablerow,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
 					}
 				}
 			}
@@ -168,47 +157,41 @@ public class historyActivity extends Activity{
 		}
 		
 		public void GetDb() {
-			Log.d("DebugLog","Inside GetDatabase of History");
-			List<history> allHistory=calculatorActivity.db.getAllHistory();
-			Log.d("DebugLog","Inside All Database get of History");
+			Log.d("Debug-Log","Inside GetDatabase of History Activity");
+			List<History> allHistory=CalculatorActivity.db.getAllHistory();
 			table=(TableLayout)findViewById(R.id.historyTable);
-			for(history his:allHistory) {
-				assignRow(his);
+			for(History history : allHistory) {
+				assignRow(history);
 			}
 		}
 		
-		public void assignRow(history history) {
-			TableRow tr;
-			TextView tv;
-			String tText=""+history.getTime()+"\n"+history.getEquation()+"\n"
-					+history.getResult();
-			tr=new TableRow(this);
-			tr.setLayoutParams(new TableRow.LayoutParams(
-					TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
-			tr.setGravity(android.view.Gravity.CENTER);
-			tv=new TextView(this);
-			tv.setLayoutParams(new TableRow.LayoutParams(
-					TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
-			tv.setClickable(true);
-			tv.setOnClickListener(new View.OnClickListener() {
+		public void assignRow(History history) {
+			TableRow tablerow;
+			TextView tableview;
+			String tText=""+history.getTime()+ "\n" + history.getEquation() + "\n" + history.getResult();
+			tablerow=new TableRow(this);
+			tablerow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
+			tablerow.setGravity(android.view.Gravity.CENTER);
+			tableview=new TextView(this);
+			tableview.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT));
+			tableview.setClickable(true);
+			tableview.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View arg0) {
 					onViewClick(arg0);	
 				}
 			});
-			tv.setText(tText);
-			tr.addView(tv);
-			table.addView(tr,new TableLayout.LayoutParams(
-					TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+			tableview.setText(tText);
+			tablerow.addView(tableview);
+			table.addView(tablerow,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
 		}
 		
 		public void onViewClick(View arg0) {
 			TextView view=(TextView) arg0;
 			Log.d("DebugLog","Inside OnViewClick");
-			Intent i=new Intent(getApplicationContext(),calculatorActivity.class);
+			Intent i=new Intent(getApplicationContext(),CalculatorActivity.class);
 			String text[]=view.getText().toString().split("\\n");
 			i.putExtra("history", text[1]);
 			i.putExtra("result", text[2]);
-			
 			startActivity(i);
 		}
 	}

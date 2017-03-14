@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class databaseHandler extends SQLiteOpenHelper{
+public class DatabaseHandler extends SQLiteOpenHelper{
 	private static final int DATABASE_VERSION=1;
 	private static final String DATABASE_NAME= "historyDB";
 	private static final String TABLE_HISTORY="history";
@@ -20,7 +20,7 @@ public class databaseHandler extends SQLiteOpenHelper{
 	private static final String HISTORY_KEY_EQUATION="equation";
 	private static final String HISTORY_KEY_RESULT="result";
 		
-	public databaseHandler(Context context) {
+	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
@@ -31,9 +31,7 @@ public class databaseHandler extends SQLiteOpenHelper{
                 + HISTORY_KEY_EQUATION + " TEXT,"
                 + HISTORY_KEY_RESULT + " TEXT"
                 + ")";
-		
 		Log.d("DebugLog",CREATE_HISTORY_TABLE);
-        
         arg0.execSQL(CREATE_HISTORY_TABLE);
 	}
 
@@ -43,7 +41,7 @@ public class databaseHandler extends SQLiteOpenHelper{
 		this.onCreate(arg0);
 	}
 	
-	void addHistory(history history) {
+	void addHistory(History history) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HISTORY_KEY_TIME, history.getTime());
@@ -54,7 +52,7 @@ public class databaseHandler extends SQLiteOpenHelper{
         db.close(); 
     }
 	
-	history getHistory(int id) {
+	History getHistory(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
  
         Cursor cursor = db.query(TABLE_HISTORY, new String[] { HISTORY_KEY_TIME,HISTORY_KEY_EQUATION,
@@ -63,23 +61,22 @@ public class databaseHandler extends SQLiteOpenHelper{
        
         if (cursor != null) cursor.moveToFirst();
  
-        history history = new history(cursor.getString(0),cursor.getString(1),
+        History history = new History(cursor.getString(0),cursor.getString(1),
         		cursor.getString(2));
         cursor.close();
         return history;
     }
 	
-	public List<history> getAllHistory() {
+	public List<History> getAllHistory() {
 		Log.i("debugLog","Inside getAllHistory");
-        List<history> historyList = new ArrayList<history>();
+        List<History> historyList = new ArrayList<History>();
         String selectQuery = "SELECT  * FROM " + TABLE_HISTORY;
  
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        
         if (cursor.moveToFirst()) {
             do {
-                history history = new history();
+                History history = new History();
                 history.setID(Integer.parseInt(cursor.getString(0)));
                 history.setTime(cursor.getString(1));
                 history.setEquation(cursor.getString(2));

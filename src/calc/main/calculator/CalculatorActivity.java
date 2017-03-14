@@ -19,93 +19,89 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
-public class calculatorActivity extends Activity{
+public class CalculatorActivity extends Activity{
 	private TextView display,history;
 	private String firstNumber,secondNumber,operator;
 	private boolean isResult,isDot;
 	public static final String shared_preference="CalculatorPreference";
 	public static final String Internal_File_Name="CalculatorData";
 	public static final String External_File_Name="CalculatorData";
-	public static final String Local_File_name="CalculatorData";
-	public static databaseHandler db;
+	public static final String Local_File_name="CalculatorData.dat";
+	public static DatabaseHandler db;
 	
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		Log.d("Entry-Tag","Inside the OnStart() method on main Activity");
-
+		Log.i("Entry-Tag","Enter Inside the OnStart() method on Main Activity");
 		switch (getResources().getConfiguration().orientation) {
-        	case Configuration.ORIENTATION_PORTRAIT:
-        		setContentView(R.layout.main);
-        		break;
-        	case Configuration.ORIENTATION_LANDSCAPE:
-        		setContentView(R.layout.landscape);
-        		break;
+    	case Configuration.ORIENTATION_PORTRAIT:
+    		Log.d("Orientation-Tag","Orientation Portrait Mode is On");
+    		setContentView(R.layout.main);
+    		break;
+    	case Configuration.ORIENTATION_LANDSCAPE:
+    		Log.d("Orientation-Tag","Orientation Landscape Mode is On");
+    		setContentView(R.layout.landscape);
+    		break;
 		}
-		
+		this.display=(TextView)findViewById(R.id.display);
+		this.history=(TextView)findViewById(R.id.history);
+		db=new DatabaseHandler(CalculatorActivity.this);
 	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		Log.d("Entry-Tag","Inside the OnCreate() method on main Activity");
+		Log.d("Entry-Tag","Enter Inside the OnCreate() method on Main Activity");
 		setContentView(R.layout.main);
 		this.firstNumber="";
 		this.secondNumber="";
 		this.operator="";
 		this.isResult=false;
 		this.isDot=false;
-		db=new databaseHandler(calculatorActivity.this);
-		Toast.makeText(this, "Welcome to the Calculator",Toast.LENGTH_SHORT).show();
-		
-		Bundle extras=getIntent().getExtras();
-		if(extras!=null) {
-			this.history.setText(extras.getString("history"));
-			this.display.setText(extras.getString("result"));
-			this.isResult=true;
-			if(extras.getString("history")!=null) {
-				String parts[]=extras.getString("history").split(" ");
-				this.firstNumber=extras.getString("result");
-				this.operator=parts[1];
-				this.secondNumber=parts[2];
-			}
-		}
-		
-		Log.d("EntryLog","Inside OnCreate of Main Activity");
-		
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Log.d("Entry-Log","Inside the onResume() method on main Activity");
-		this.display=(TextView)findViewById(R.id.display);
-		this.history=(TextView)findViewById(R.id.history);
+		Log.d("Entry-Log","Enter Inside the onResume() method on Main Activity");
+		Bundle e=getIntent().getExtras();
+		if(e!=null){
+			this.history.setText(e.getString("history"));
+			this.display.setText(e.getString("result"));
+			if(e.getString("history")!=null) {
+				String str[]=e.getString("history").split(" ");
+				this.firstNumber=e.getString("result");
+				this.operator=str[1];
+				this.secondNumber=str[2];
+			}
+			this.isResult=true;
+		}
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Log.d("Entry-Log","Inside OnPause of Main Activity");
+		Log.d("Entry-Log","Enter Inside OnPause of Main Activity");
 	}
 	
 	@Override
 	protected void onStop() {
 		super.onStop();
-		Log.d("EntryLog","Inside OnStop of Main Activity");	
+		Log.i("Entry-Tag","Enter Inside OnStop() on Main Activity");	
 	}
 	
-	public void onNumberClick(View arg0) {		
+	public void onNumberClick(View arg0) {	
+		Log.d("Entry-Log","Enter Inside the OnNumberClick Click Event  on Main Activity");
 		Button btn=(Button)arg0;
-		Log.d("Debug-Log","Inside onNumberClick , Pressed Button " + btn.getText());
+		Log.d("Debug-Log","Inside OnNumberClick , Pressed Button " + btn.getText());
 		
 		if(this.isResult) {
 			onReset();
 		}
-		
+
 		if(this.display.getText().toString().length()<=11){
 			if(this.display.getText().equals("0") && !btn.getText().toString().equals(".")) {
 				this.display.setText("");
@@ -123,10 +119,12 @@ public class calculatorActivity extends Activity{
 			if(!btn.getText().toString().equals(".")){
 				this.display.setText(this.display.getText().toString() + btn.getText().toString());	
 			}
+			Log.d("Debug-Log","Display Text Set : " + this.display.getText());
 		}
 	}
 	
 	public void onOperatorClick(View arg0){
+		Log.d("Entry-Log","Enter Inside the onOperatorClick Click Event  on Main Activity");
 		Button btn=(Button)arg0;
 		Log.d("Debug-Log","Inside OnOperatorClick , Pressed Operator "+ btn.getText());
 		this.operator=btn.getText().toString();
@@ -155,13 +153,12 @@ public class calculatorActivity extends Activity{
 	}
 	
 	public void calculation(){
+		Log.d("Entry-Log","Enter Inside the Calculation() Method on Main Activity");
 		Intent i=new Intent(getApplicationContext(),CalculationActivity.class);
-		Log.d("Entry-Log","Inside Calculation() method of Main Activity");
-		i.putExtra("first", this.firstNumber);
-		i.putExtra("second", this.secondNumber);
-		i.putExtra("op", this.operator);
+		i.putExtra("firstNumber", this.firstNumber);
+		i.putExtra("secondNumber", this.secondNumber);
+		i.putExtra("operator", this.operator);
 		i.putExtra("history", this.history.getText());
-		Log.d("Entry-Log","Inside done Calculation() of Main Activity");
 		startActivityForResult(i, 1);
 		/*
 		Log.d("Entry-Log","Inside Calculation() method of Main Activity");
@@ -202,16 +199,17 @@ public class calculatorActivity extends Activity{
 		else{
 			this.firstNumber= Double.toString(result);
 		}
-		this.WriteInternal(history.getText().toString(), Double.toString(result));
+		//this.WriteInternal(history.getText().toString(), Double.toString(result));
 		//this.WriteExternal(history.getText().toString(), Double.toString(result));*/
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.i("Entry-Tag","Enter Inside the onActivityResult Event on Main Activity");
 		super.onActivityResult(requestCode, resultCode, data);
 		if(requestCode==1) {
 			if(resultCode==RESULT_OK) {
-				Log.d("OnActivity Result",data.getStringExtra("result"));
+				Log.d("OnActivity Result is :",data.getStringExtra("result"));
 				this.firstNumber=data.getStringExtra("result");
 				this.display.setText(this.firstNumber);
 				InsertDb(this.history.getText().toString(), this.firstNumber);
@@ -220,10 +218,10 @@ public class calculatorActivity extends Activity{
 	}
 	
 	public void InsertDb(String data,String data2) {
-		Log.i("Enter-Log","Inside Insert Database");
+		Log.d("Entery-Tag","Inside Insert Database on Main Activity");
 		SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
 		String date=df.format(new Date());
-		db.addHistory(new history(date,data,data2));
+		db.addHistory(new History(date,data,data2));
 	}
 	
 	public void onEqualClick(View arg0){
@@ -246,13 +244,13 @@ public class calculatorActivity extends Activity{
 	
 	public void onResetClick(View arg0){
 		Button btn=(Button)arg0;
-		Log.d("Debug-Log","Inside onReset Click , Pressed " + btn.getText());
+		Log.d("Debug-Log","Inside onReset Click Event , Pressed " + btn.getText());
 		onReset();
 	}
 	
 	public void onClearClick(View arg0) {
 		Button btn=(Button)arg0;
-		Log.d("Debug-Log","Inside onClearClick , Pressed " + btn.getText());
+		Log.d("Debug-Log","Inside onClearClick Event , Pressed " + btn.getText());
 		onClear();
 	}
 	
@@ -268,7 +266,7 @@ public class calculatorActivity extends Activity{
 	}
 	
 	public void onClear(){
-		Log.d("Entry-Log","Inside onClear");
+		Log.d("Entry-Log","Inside onClear() Method on Main Activity");
 		this.display.setText("0");
 		isDot=false;
 	}
@@ -321,14 +319,14 @@ public class calculatorActivity extends Activity{
 	
 	
 	public void setMemoryValue(String str){
-		SharedPreferences settings=getSharedPreferences(calculatorActivity.shared_preference,0);
+		SharedPreferences settings=getSharedPreferences(CalculatorActivity.shared_preference,0);
 		SharedPreferences.Editor editor=settings.edit();
 		editor.putString("storevalue",str);
 		editor.commit();
 	}
 	
 	public String getMemoryValue(){
-		SharedPreferences settings=getSharedPreferences(calculatorActivity.shared_preference,0);
+		SharedPreferences settings=getSharedPreferences(CalculatorActivity.shared_preference,0);
 		String val=settings.getString("storevalue", "0");
 		if(val.length()==0){
 			val="0";
@@ -338,7 +336,7 @@ public class calculatorActivity extends Activity{
 	
 	public void onHistoryActivity(View arg0){
 		Log.d("DebugLog","Inside OnHistory");
-		Intent i=new Intent(getApplicationContext(),historyActivity.class);
+		Intent i=new Intent(getApplicationContext(),HistoryActivity.class);
 		startActivity(i);
 	}
 
