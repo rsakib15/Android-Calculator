@@ -9,25 +9,24 @@ public class CalculationActivity extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.d("EntryLog","Inside OnCreate of Calculation Activity");
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		Log.d("EntryLog","Inside PerformCalculation of Main Activity");
 		Bundle extras=getIntent().getExtras();
 		this.Perform(extras);
 	}
-	
+
 	public void Perform(Bundle extras) {
 		Intent intent=new Intent();
-		if(extras==null) 
-			setResult(RESULT_CANCELED,intent);
+		if(extras==null) setResult(RESULT_CANCELED,intent);
 		else {
 			String first,second,op;
 			first=extras.getString("first");
 			second=extras.getString("second");
 			op=extras.getString("op");
-			Log.d("EntryLog","Inside PerformCalculation of Main Activity");
 			if(first.length()==0 || second.length()==0) 
 				setResult(RESULT_CANCELED,intent);
-			
+			//Log.d("EntryLog","Inside PerformCalculation of Main Activity");
 			else {
 				double a=Double.valueOf(first);
 				Log.d("DebugLog","Value of a is: "+a);

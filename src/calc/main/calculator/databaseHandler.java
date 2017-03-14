@@ -45,7 +45,6 @@ public class databaseHandler extends SQLiteOpenHelper{
 	
 	void addHistory(history history) {
         SQLiteDatabase db = this.getWritableDatabase();
- 
         ContentValues values = new ContentValues();
         values.put(HISTORY_KEY_TIME, history.getTime());
         values.put(HISTORY_KEY_EQUATION, history.getEquation());

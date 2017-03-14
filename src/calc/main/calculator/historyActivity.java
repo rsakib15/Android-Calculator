@@ -15,6 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import calc.main.calculator.R;
 
 public class historyActivity extends Activity{
 	public static final String fileName="storage.dat";

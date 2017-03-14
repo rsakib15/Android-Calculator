@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import calc.main.calculator.R;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -56,6 +57,7 @@ public class calculatorActivity extends Activity{
 		this.operator="";
 		this.isResult=false;
 		this.isDot=false;
+		db=new databaseHandler(calculatorActivity.this);
 		Toast.makeText(this, "Welcome to the Calculator",Toast.LENGTH_SHORT).show();
 		
 		Bundle extras=getIntent().getExtras();
@@ -152,7 +154,7 @@ public class calculatorActivity extends Activity{
 		}
 	}
 	
-	private void calculation(){
+	public void calculation(){
 		Intent i=new Intent(getApplicationContext(),CalculationActivity.class);
 		Log.d("Entry-Log","Inside Calculation() method of Main Activity");
 		i.putExtra("first", this.firstNumber);
@@ -160,7 +162,48 @@ public class calculatorActivity extends Activity{
 		i.putExtra("op", this.operator);
 		i.putExtra("history", this.history.getText());
 		Log.d("Entry-Log","Inside done Calculation() of Main Activity");
-		//startActivityForResult(i, 1);
+		startActivityForResult(i, 1);
+		/*
+		Log.d("Entry-Log","Inside Calculation() method of Main Activity");
+		
+		if(this.firstNumber.length()==0 || this.secondNumber.length()==0){
+			return;
+		}
+		
+		double first=Double.valueOf(firstNumber);
+		double second=Double.valueOf(secondNumber);
+		double result=first;
+		
+		Log.d("DebugLog","Value of first number is: " + first);
+		Log.d("DebugLog","Value of second number is: "+second);
+		
+		if(operator.equals("+")){
+			result=first+second;
+		}
+		else if(operator.equals("-")){
+			result=first-second;
+		}
+		else if(operator.equals("X")){
+			result=first*second;
+		}
+		else if(operator.equals("/")){
+			result=first/second;
+		}
+		else if(operator.equals("%")){
+			result=(first*second)/100;
+		}
+		
+		Log.d("DebugLog","Value of Result is: " + result);
+		
+		int intresult=(int)result;
+		if(intresult==result){
+			this.firstNumber=Integer.toString(intresult);
+		}
+		else{
+			this.firstNumber= Double.toString(result);
+		}
+		this.WriteInternal(history.getText().toString(), Double.toString(result));
+		//this.WriteExternal(history.getText().toString(), Double.toString(result));*/
 	}
 	
 	@Override
@@ -172,12 +215,12 @@ public class calculatorActivity extends Activity{
 				this.firstNumber=data.getStringExtra("result");
 				this.display.setText(this.firstNumber);
 				InsertDb(this.history.getText().toString(), this.firstNumber);
-			}
-			
+			}	
 		}
 	}
 	
 	public void InsertDb(String data,String data2) {
+		Log.i("Enter-Log","Inside Insert Database");
 		SimpleDateFormat df=new SimpleDateFormat("dd-MMM-yyyy hh:mm");
 		String date=df.format(new Date());
 		db.addHistory(new history(date,data,data2));
@@ -198,7 +241,7 @@ public class calculatorActivity extends Activity{
 			this.calculation();		
 			this.isResult=true;
 		}
-		//this.display.setText(firstNumber);
+		this.display.setText(firstNumber);
 	}
 	
 	public void onResetClick(View arg0){
