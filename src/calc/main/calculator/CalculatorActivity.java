@@ -52,27 +52,6 @@ public class CalculatorActivity extends Activity{
 		db=new DatabaseHandler(CalculatorActivity.this);
 	}
 	
-	 @Override
-	 public void onBackPressed() {
-	     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	     builder.setTitle("Exit?")
-	         .setMessage("Are you sure you want to exit?")
-	         .setCancelable(false)
-	         .setIcon(R.drawable.help)
-	         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	         public void onClick(DialogInterface dialog, int id) {
-	               finish();
-	          	}
-	         })
-	                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	                    public void onClick(DialogInterface dialog, int id) {
-	                        dialog.cancel();
-	                    }
-	                });
-	        AlertDialog alert = builder.create();
-	        alert.show();
-	    }
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -116,6 +95,28 @@ public class CalculatorActivity extends Activity{
 	protected void onStop() {
 		super.onStop();
 		Log.i("Entry-Tag","Enter Inside OnStop() on Main Activity");	
+	}
+	
+	
+	 @Override
+	 public void onBackPressed() {
+	     AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	     builder.setTitle("Exit?")
+	         .setMessage("Are you sure you want to exit?")
+	         .setCancelable(false)
+	         .setIcon(R.drawable.help)
+	         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	         public void onClick(DialogInterface dialog, int id) {
+	               finish();
+	          	}
+	         })
+	         .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	              public void onClick(DialogInterface dialog, int id) {
+	                  dialog.cancel();
+	              }
+	        });
+	        AlertDialog alert = builder.create();
+	        alert.show();
 	}
 	
 	public void onNumberClick(View arg0) {	
